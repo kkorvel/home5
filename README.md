@@ -9,7 +9,7 @@ Töötamiseks looge endale isiklik repositoorium, näiteks privaatne 'fork' bitb
 ```
 #!bash
 
-javac -cp src src/TreeNode.java
+javac -cp src src/Node.java
 ```
 
 #### Käivitamine: ####
@@ -17,7 +17,7 @@ javac -cp src src/TreeNode.java
 ```
 #!bash
 
-java -cp src TreeNode
+java -cp src Node
 ```
 
 
@@ -27,7 +27,7 @@ java -cp src TreeNode
 ```
 #!bash
 
-javac -encoding utf8 -cp 'src:test:test/junit-4.12.jar:test/hamcrest-core-1.3.jar' test/TreeNodeTest.java
+javac -encoding utf8 -cp 'src:test:test/junit-4.12.jar:test/hamcrest-core-1.3.jar' test/NodeTest.java
 
 ```
 Sama Windows aknas (koolonite asemel peavad olema semikoolonid):
@@ -35,7 +35,7 @@ Sama Windows aknas (koolonite asemel peavad olema semikoolonid):
 ```
 #!bash
 
-javac -encoding utf8 -cp 'src;test;test/junit-4.12.jar;test/hamcrest-core-1.3.jar' test/TreeNodeTest.java
+javac -encoding utf8 -cp 'src;test;test/junit-4.12.jar;test/hamcrest-core-1.3.jar' test/NodeTest.java
 
 
 ```
@@ -45,7 +45,7 @@ javac -encoding utf8 -cp 'src;test;test/junit-4.12.jar;test/hamcrest-core-1.3.ja
 ```
 #!bash
 
-java -cp 'src:test:test/junit-4.12.jar:test/hamcrest-core-1.3.jar' org.junit.runner.JUnitCore TreeNodeTest
+java -cp 'src:test:test/junit-4.12.jar:test/hamcrest-core-1.3.jar' org.junit.runner.JUnitCore NodeTest
 ```
 
 Sama Windows aknas (koolonite asemel semikoolonid):
@@ -53,5 +53,5 @@ Sama Windows aknas (koolonite asemel semikoolonid):
 ```
 #!bash
 
-java -cp 'src;test;test/junit-4.12.jar;test/hamcrest-core-1.3.jar' org.junit.runner.JUnitCore TreeNodeTest
+java -cp 'src;test;test/junit-4.12.jar;test/hamcrest-core-1.3.jar' org.junit.runner.JUnitCore NodeTest
 ```
