@@ -1,4 +1,9 @@
 //Ideid ja mõtteid sain klassikaaslaste koodist ja ka Internetist!
+//https://bitbucket.org/akopolov/algorithms
+//https://docs.oracle.com/javase/7/docs/api/javax/swing/tree/TreeNode.html
+//http://stackoverflow.com/questions/10290649/tree-of-nodet-explaination
+//http://programtalk.com/java/java-tree-implementation/
+
 import java.util.Arrays;
 import java.util.LinkedList;
 public class Node {
@@ -32,7 +37,7 @@ public class Node {
          }
       }
 
-      Node root = Treebuild(new Node(null, null, null), items);
+      Node root = treebuild(new Node(null, null, null), items);
       if (root.firstChild == null && root.nextSibling == null) {
          if (root.name != null) {
             return root;
@@ -43,14 +48,14 @@ public class Node {
       return root;
    }
 
-   public static Node Treebuild(Node root, LinkedList<String> items) {
+   public static Node treebuild(Node root, LinkedList<String> items) {
       while (!items.isEmpty()) {
          String item = items.pop();
          if (item.equals("(")) {
-            root.firstChild = Treebuild(new Node(null, null, null), items);
+            root.firstChild = treebuild(new Node(null, null, null), items);
          }
          else if (item.equals(",")) {
-            root.nextSibling = Treebuild(new Node(null, null, null), items);
+            root.nextSibling = treebuild(new Node(null, null, null), items);
             if (root.name == null) {
                throw new RuntimeException("empty,  OR   ,empty OR ,,");
             }
@@ -73,17 +78,17 @@ public class Node {
       }
       return root;
    }
-   public static Node PuuEhitus(Node root, int open) {
+   public static Node puuEhitus(Node root, int open) {
       if (root.firstChild != null) {
          open++;
-         root.name += "(" + PuuEhitus(root.firstChild, open).name;
+         root.name += "(" + puuEhitus(root.firstChild, open).name;
          root.name += ")";
          if (root.nextSibling != null) {
-            root.name += "," + PuuEhitus(root.nextSibling, open).name;
+            root.name += "," + puuEhitus(root.nextSibling, open).name;
             return root;
          }
       } else if (root.nextSibling != null) {
-         root.name += "," + PuuEhitus(root.nextSibling, open).name;
+         root.name += "," + puuEhitus(root.nextSibling, open).name;
          return root;
       } else {
          return root;
@@ -92,7 +97,7 @@ public class Node {
    }
 
    public String leftParentheticRepresentation() {
-      String text = PuuEhitus(this, 0).name;
+      String text = puuEhitus(this, 0).name;
       return text;
    }
 
