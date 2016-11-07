@@ -79,20 +79,19 @@ public class Node {
       return root;
    }
    public static Node puuEhitus(Node root, int open) {
+      StringBuilder SB = new StringBuilder();
       if (root.firstChild != null) {
          open++;
-         root.name += "(" + puuEhitus(root.firstChild, open).name;
-         root.name += ")";
-         if (root.nextSibling != null) {
-            root.name += "," + puuEhitus(root.nextSibling, open).name;
-            return root;
-         }
-      } else if (root.nextSibling != null) {
-         root.name += "," + puuEhitus(root.nextSibling, open).name;
-         return root;
-      } else {
-         return root;
+         SB.append("(");
+         SB.append(puuEhitus(root.firstChild, open).name);
+         SB.append(")");
       }
+
+      if (root.nextSibling != null) {
+         SB.append(",");
+         SB.append(puuEhitus(root.nextSibling, open).name);
+      }
+      root.name += SB.toString();
       return root;
    }
 
