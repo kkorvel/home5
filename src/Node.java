@@ -19,12 +19,14 @@ public class Node {
    }
 
    public static Node parsePostfix (String s) {
+      sb = s;
       int n = 0;
       items = new LinkedList<String>(Arrays.asList(s.split("")));
       for (String item : items) {
          if(item.replaceAll("\\s+", " ").equals(" ")){
             throw new RuntimeException("Leht ei saa olla tühi");
          }
+
          if (item.equals("(")) {
             n++;
          } else if (item.equals(")")) {
@@ -45,6 +47,7 @@ public class Node {
       } else if (root.firstChild == null && root.nextSibling != null) {
          throw new RuntimeException("Pole sulgusid!");
       }
+
       return root;
    }
 
@@ -53,16 +56,19 @@ public class Node {
          String item = items.pop();
          if (item.equals("(")) {
             root.firstChild = treebuild(new Node(null, null, null), items);
+            if (!items.isEmpty() && root.name != null){
+               throw new RuntimeException("Tal pole vanemat! Kontrolli " + sb);
+            }
          }
          else if (item.equals(",")) {
             root.nextSibling = treebuild(new Node(null, null, null), items);
             if (root.name == null) {
-               throw new RuntimeException("empty,  OR   ,empty OR ,,");
+               throw new RuntimeException("empty,  OR   ,empty OR ,," + "  Kontrolli " + sb);
             }
             return root;
          } else if (item.equals(")")) {
             if (root.name == null) {
-               throw new RuntimeException("empty(X) OR X(empty) OR (empty)X OR (X)empty OR empty(empty)");
+               throw new RuntimeException("empty(X) OR X(empty) OR (empty)X OR (X)empty OR empty(empty)"+ "  Kontrolli " + sb );
             }
             return root;
          } else {
@@ -79,19 +85,19 @@ public class Node {
       return root;
    }
    public static Node puuEhitus(Node root, int open) {
-      StringBuilder SB = new StringBuilder();
+      StringBuilder stringBuilder = new StringBuilder();
       if (root.firstChild != null) {
          open++;
-         SB.append("(");
-         SB.append(puuEhitus(root.firstChild, open).name);
-         SB.append(")");
+         stringBuilder.append("(");
+         stringBuilder.append(puuEhitus(root.firstChild, open).name);
+         stringBuilder.append(")");
       }
 
       if (root.nextSibling != null) {
-         SB.append(",");
-         SB.append(puuEhitus(root.nextSibling, open).name);
+         stringBuilder.append(",");
+         stringBuilder.append(puuEhitus(root.nextSibling, open).name);
       }
-      root.name += SB.toString();
+      root.name += stringBuilder.toString();
       return root;
    }
 
@@ -128,9 +134,11 @@ public class Node {
       }
    }
    public static void main (String[] param) {
-      String s = "(B1,C)A";
+      String s = "(B1(ff),C)A";
       Node t = Node.parsePostfix (s);
       String v = t.leftParentheticRepresentation();
       System.out.println (s + " ==> " + v); // (B1,C)A ==> A(B1,C)
    }
+
+   private static String sb = null;
 }
